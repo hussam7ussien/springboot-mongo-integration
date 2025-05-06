@@ -17,6 +17,10 @@ public class ProductController {
     public ResponseEntity<String> save(@RequestBody ProductRequestDTO request) {
         return ResponseEntity.ok(productService.save(request));
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<String> edit(@PathVariable String id, @RequestBody ProductRequestDTO request) {
+        return ResponseEntity.ok(productService.edit(id, request));
+    }
 
     @GetMapping
     public ResponseEntity<List<ProductRequestDTO>> findAll() {

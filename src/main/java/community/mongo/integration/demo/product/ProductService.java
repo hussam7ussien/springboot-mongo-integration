@@ -27,6 +27,21 @@ public class ProductService {
                 .build();
         return productRepository.save(product).getId();
     }
+
+    public String edit(String id, ProductRequestDTO dto) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        Category category = categoryRepository.findById(dto.getCategoryId())
+                .orElseThrow(() -> new RuntimeException("Category not found"));
+
+        product.setName(dto.getName());
+        product.setDescription(dto.getDescription());
+        product.setCategory(category);
+
+        return productRepository.save(product).getId();
+    }
+
     public ProductRequestDTO findById(String id){
         return productRepository.findById(id)
                 .map(this::mapToDTO)
